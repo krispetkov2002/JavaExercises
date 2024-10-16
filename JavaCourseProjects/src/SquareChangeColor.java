@@ -12,9 +12,11 @@ import java.awt.event.*;
 public class SquareChangeColor extends JFrame implements MouseListener{
 
     boolean flag = true;
-    int[] x = new int[2];
-    int[] y = new int[2];
+    static int[] x = new int[2];
+    static int[] y = new int[2];
     int n = 0, r = 5;
+    Color[] _colors = new Color[] { Color.RED, Color.BLUE};
+    int _currentIndex = 0;
 
     SquareChangeColor() {
         setSize(600, 400);
@@ -27,6 +29,16 @@ public class SquareChangeColor extends JFrame implements MouseListener{
 
     public static void main(String[] args) {
         SquareChangeColor win = new SquareChangeColor();
+    }
+
+    private static Boolean MouseIsInCircle(int mouseX, int mouseY){
+        int x0 = 0, y0 = 0, x1 = 0, y1 = 0;
+
+        if(mouseX >= x[0] && mouseX <= x[1] &&
+            mouseY >= y[0] && mouseY <= y[1]){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -45,7 +57,7 @@ public class SquareChangeColor extends JFrame implements MouseListener{
             }
             //Начертаване на квадрата
             if(n >= 2){
-                g.setColor(Color.RED);
+                g.setColor(_colors[_currentIndex]); // RED
                 int d_Width = x_coordinates[1] - x_coordinates[0];
                 int d_Height = y_coordinates[1] - y_coordinates[0];
 
@@ -57,7 +69,15 @@ public class SquareChangeColor extends JFrame implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(!MouseIsInCircle(e.getX(), e.getY())){
+            return;
+        }
+        _currentIndex++;
 
+        if(_currentIndex >= _colors.length){
+            _currentIndex = 0;
+        }
+        repaint();
     }
 
     @Override
