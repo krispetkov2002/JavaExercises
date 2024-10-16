@@ -15,8 +15,9 @@ public class SquareChangeColor extends JFrame implements MouseListener{
     static int[] x = new int[2];
     static int[] y = new int[2];
     int n = 0, r = 5;
+
     Color[] _colors = new Color[] { Color.RED, Color.BLUE};
-    int _currentIndex = 0;
+    int _currentIndex = 0; //SET COLOR TO RED
 
     SquareChangeColor() {
         setSize(600, 400);
@@ -32,13 +33,8 @@ public class SquareChangeColor extends JFrame implements MouseListener{
     }
 
     private static Boolean MouseIsInCircle(int mouseX, int mouseY){
-        int x0 = 0, y0 = 0, x1 = 0, y1 = 0;
-
-        if(mouseX >= x[0] && mouseX <= x[1] &&
-            mouseY >= y[0] && mouseY <= y[1]){
-            return true;
-        }
-        return false;
+        return mouseX >= x[0] && mouseX <= x[1] &&
+                mouseY >= y[0] && mouseY <= y[1];
     }
 
     @Override
@@ -47,17 +43,18 @@ public class SquareChangeColor extends JFrame implements MouseListener{
         int[] y_coordinates = new int[2];
 
         if(flag) {
-
             g.setColor(Color.BLACK);
+
             for (int i = 0; i < n; i++) {
                 //Начертаване на двете точки
                 g.fillOval(x[i] - r, y[i] - r, 2*r, 2*r);
                 x_coordinates[i] = x[i] - r;
                 y_coordinates[i] = y[i] - r;
             }
+
             //Начертаване на квадрата
             if(n >= 2){
-                g.setColor(_colors[_currentIndex]); // RED
+                g.setColor(_colors[_currentIndex]); // RETURN RED
                 int d_Width = x_coordinates[1] - x_coordinates[0];
                 int d_Height = y_coordinates[1] - y_coordinates[0];
 
@@ -73,7 +70,6 @@ public class SquareChangeColor extends JFrame implements MouseListener{
             return;
         }
         _currentIndex++;
-
         if(_currentIndex >= _colors.length){
             _currentIndex = 0;
         }
@@ -86,9 +82,6 @@ public class SquareChangeColor extends JFrame implements MouseListener{
             x[n] = e.getX();
             y[n] = e.getY();
             n++;}
-//        if(e.getButton() == MouseEvent.BUTTON2 && n >= 2) {flag = false;}
-//        if(e.getButton() == MouseEvent.BUTTON3 && n >= 2) {flag = true;}
-
         repaint();
     }
 

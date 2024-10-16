@@ -11,7 +11,7 @@ import java.util.*;
 
 public class SquaresFromTextCoordinates extends Frame {
 
-    private static ArrayList<Coordinates> _coordinates = new ArrayList<Coordinates>();
+    private static final ArrayList<Coordinates> _coordinates = new ArrayList<Coordinates>();
 
     public static void main(String[] args) throws IOException {
         SquaresFromTextCoordinates frame = new SquaresFromTextCoordinates();
@@ -52,7 +52,7 @@ public class SquaresFromTextCoordinates extends Frame {
         while (textLine != null)
         {
             String[] textCoordinates = textLine.split(" ");
-            if(flag){
+            if(flag){   //FOR FIRST POINT
                 Coordinates coordinates = new Coordinates(Integer.parseInt(textCoordinates[0]),
                         Integer.parseInt(textCoordinates[1]),
                         Integer.parseInt(textCoordinates[2]),
@@ -64,7 +64,7 @@ public class SquaresFromTextCoordinates extends Frame {
                 _coordinates.add(coordinates);
                 flag = false;
             }
-            else{
+            else{       //FOR THE REST THREE POINTS
                 Coordinates coordinates = new Coordinates(Integer.parseInt(textCoordinates[0]),
                         Integer.parseInt(textCoordinates[1]),
                         Integer.parseInt(textCoordinates[2]),
@@ -82,9 +82,8 @@ public class SquaresFromTextCoordinates extends Frame {
 
 class Coordinates {
     public int X0, Y0, X1, Y1, X2, Y2, X3, Y3;
-    //public int Wo;
-    //public int Ho;
 
+    //Constructor for first point
     public Coordinates(int X0, int Y0, int X1, int Y1, int X2, int Y2, int X3, int Y3) {
         this.X0 = X0;
         this.Y0 = Y0;
@@ -95,6 +94,7 @@ class Coordinates {
         this.X3 = X3;
         this.Y3 = Y3;
     }
+    //Constructor for the rest three points
     public Coordinates(int X0, int Y0, int X1, int Y1, int X2, int Y2) {
         this.X0 = X0;
         this.Y0 = Y0;
