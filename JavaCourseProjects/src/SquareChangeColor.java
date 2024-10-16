@@ -12,8 +12,8 @@ import java.awt.event.*;
 public class SquareChangeColor extends JFrame implements MouseListener{
 
     boolean flag = true;
-    int[] x = new int[4];
-    int[] y = new int[4];
+    int[] x = new int[2];
+    int[] y = new int[2];
     int n = 0, r = 5;
 
     SquareChangeColor() {
@@ -34,10 +34,9 @@ public class SquareChangeColor extends JFrame implements MouseListener{
         int[] x_coordinates = new int[2];
         int[] y_coordinates = new int[2];
 
-        //super.paint(g);
         if(flag) {
 
-            g.setColor(Color.black);
+            g.setColor(Color.BLACK);
             for (int i = 0; i < n; i++) {
                 //Начертаване на двете точки
                 g.fillOval(x[i] - r, y[i] - r, 2*r, 2*r);
@@ -46,11 +45,12 @@ public class SquareChangeColor extends JFrame implements MouseListener{
             }
             //Начертаване на квадрата
             if(n >= 2){
+                g.setColor(Color.RED);
                 int d_Width = x_coordinates[1] - x_coordinates[0];
                 int d_Height = y_coordinates[1] - y_coordinates[0];
-                g.fillRect(x[n] - r, y[n] - r,
-                        100, 100);
-                //g.fillPolygon(x_coordinates, y_coordinates, 2);
+
+                g.fillRect(x_coordinates[0] + r, y_coordinates[0] + r,
+                        d_Width, d_Height);
             }
         }
     }
