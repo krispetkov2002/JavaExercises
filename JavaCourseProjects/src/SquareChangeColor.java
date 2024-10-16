@@ -1,0 +1,89 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+/*
+    2.10 Да се състави Applet или Application на Java, имащ следната функционалност:
+	1) дава възможност за поставяне на 2 точки с помощта на мишката (щракване с левия бутон, точката е окръжност
+	с радиус 5 пиксела) и изчертава квадрат с диагонал 2-те точки.
+	2) при щракване с мишката вътре в квадрата той сменя цвета си, а вън от него - не.
+*/
+
+public class SquareChangeColor extends JFrame implements MouseListener{
+
+    boolean flag = true;
+    int[] x = new int[4];
+    int[] y = new int[4];
+    int n = 0, r = 5;
+
+    SquareChangeColor() {
+        setSize(600, 400);
+        setLocation(200, 100);
+        setBackground(Color.LIGHT_GRAY);
+        addWindowListener(new WindowClosingAdapter(true));
+        addMouseListener(this);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SquareChangeColor win = new SquareChangeColor();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        int[] x_coordinates = new int[2];
+        int[] y_coordinates = new int[2];
+
+        //super.paint(g);
+        if(flag) {
+
+            g.setColor(Color.black);
+            for (int i = 0; i < n; i++) {
+                //Начертаване на двете точки
+                g.fillOval(x[i] - r, y[i] - r, 2*r, 2*r);
+                x_coordinates[i] = x[i] - r;
+                y_coordinates[i] = y[i] - r;
+            }
+            //Начертаване на квадрата
+            if(n >= 2){
+                int d_Width = x_coordinates[1] - x_coordinates[0];
+                int d_Height = y_coordinates[1] - y_coordinates[0];
+                g.fillRect(x[n] - r, y[n] - r,
+                        100, 100);
+                //g.fillPolygon(x_coordinates, y_coordinates, 2);
+            }
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(e.getButton() == MouseEvent.BUTTON1 && n < 2) {
+            x[n] = e.getX();
+            y[n] = e.getY();
+            n++;}
+//        if(e.getButton() == MouseEvent.BUTTON2 && n >= 2) {flag = false;}
+//        if(e.getButton() == MouseEvent.BUTTON3 && n >= 2) {flag = true;}
+
+        repaint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+}
